@@ -9,7 +9,7 @@ import UIKit
 
 class CharacterTableViewController: UITableViewController {
     //MARK: - Properties
-    var viewModel: CharacterViewModel!
+    private var viewModel: CharacterViewModel!
     
     //MARK: - Outlets
     @IBOutlet weak var searchBar: UISearchBar!
@@ -37,11 +37,8 @@ class CharacterTableViewController: UITableViewController {
 }
 
 extension CharacterTableViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchTerm = searchBar.text,
-              !searchTerm.isEmpty else { return }
-        
-        viewModel.fetchCharacter(with: searchTerm)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.fetchCharacter(with: searchText)
     }
 }
 
