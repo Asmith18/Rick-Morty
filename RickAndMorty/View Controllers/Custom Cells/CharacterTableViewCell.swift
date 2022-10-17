@@ -8,7 +8,7 @@
 import UIKit
 
 class CharacterTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var characterImageView: UIImageView!
     @IBOutlet weak var characterName: UILabel!
     @IBOutlet weak var characterGender: UILabel!
@@ -19,11 +19,19 @@ class CharacterTableViewCell: UITableViewCell {
     
 
     func updateViews(with character: Character) {
-        characterName.text = character.name
-        characterGender.text = character.gender
-        characterStatus.text = character.status
-        characterSpecies.text = character.species
+        characterName.text = "Name: \(character.name)"
+        characterGender.text = "Gender: \(character.gender)"
+        characterStatus.text = "Status: \(character.status)"
+        characterSpecies.text = "Specie: \(character.species)"
+        characterorigin.text = "Origin: \(character.origin.name)"
+        characterLocation.text = "Location: \(character.location.name)"
         fetchImage(for: character)
+        makeRounded()
+    }
+    
+    func makeRounded() {
+        characterImageView.layer.cornerRadius = characterImageView.frame.size.width / 2
+        characterImageView.clipsToBounds = true
     }
     
     func fetchImage(for character: Character) {

@@ -19,7 +19,7 @@ struct APIService {
         let characterURL = baseURL.appendingPathComponent(kCharacter)
         var urlComponents = URLComponents(url: characterURL, resolvingAgainstBaseURL: true)
         let nameFilter = URLQueryItem(name: kName, value: searchTerm)
-        urlComponents?.queryItems?.append(nameFilter)
+        urlComponents?.queryItems = [nameFilter]
         guard let finalURL = urlComponents?.url else { return }
         
         URLSession.shared.dataTask(with: finalURL) { data, _, error in
