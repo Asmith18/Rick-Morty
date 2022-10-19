@@ -6,8 +6,18 @@
 //
 
 import Foundation
+import UIKit
+
+protocol CharacterDetailViewModelDelegate: CharacterDetailViewController {
+    func characterHasData()
+}
 
 class CharacterDetailViewModel {
     
     var character: Character?
+    weak var delegate: CharacterDetailViewModelDelegate?
+    
+    init(delegate: CharacterDetailViewModelDelegate?) {
+        self.delegate = delegate
+    }
 }

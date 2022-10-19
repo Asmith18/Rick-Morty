@@ -22,30 +22,20 @@ class CharacterViewModel {
         self.delegate = delegate
     }
     
-    func defaultFetch() {
-//        APIService.fetchCharacter(with: "") { [weak self] result in
-//            switch result {
-//            case .success(let character):
-//                self?.character = character.results
-//                self?.delegate?.searchTermHasData()
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-    }
-    
     func fetchCharacter(with searchTerm: String) {
-        service.fetchcharacterList(for: .name(searchTerm)) { result in
+        //MARK: - refactored code
+        service.fetchcharacterList(for: .name(searchTerm)) { [weak self] result in
             switch result {
             case .success(let tld):
-                self.character = tld.results
+                self?.character = tld.results
                 DispatchQueue.main.async {
-                    self.delegate?.searchTermHasData()
+                    self?.delegate?.searchTermHasData()
                 }
             case .failure(let error):
                 print(error)
             }
         }
+        //MARK: - Old code
 //        APIService.fetchCharacter(with: searchTerm) { [weak self] result in
 //            switch result {
 //            case .success(let character):

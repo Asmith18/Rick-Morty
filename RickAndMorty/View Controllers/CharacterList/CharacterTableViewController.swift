@@ -17,7 +17,6 @@ class CharacterTableViewController: UITableViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
         viewModel = CharacterViewModel(delegate: self)
     }
 
@@ -29,10 +28,17 @@ class CharacterTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "character", for: indexPath) as! CharacterTableViewCell
-        let result = viewModel.character[indexPath.row]
-        cell.updateViews(with: result)
+        cell.updateViews(with: viewModel.character[indexPath.row])
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        guard let viewController = storyBoard.instantiateViewController(withIdentifier: "detail") as? CharacterDetailViewController else { return }
+        viewController.viewModel = CharacterDetailViewModel(delegate: viewController)
+        viewController.viewModel.character = viewModel.character[indexPath.row]
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
